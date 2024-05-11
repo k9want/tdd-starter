@@ -5,6 +5,7 @@ public enum PasswordStrength {
     NORMAL,
     WEAK,
 
+    NOTHING,
 
 
     ;

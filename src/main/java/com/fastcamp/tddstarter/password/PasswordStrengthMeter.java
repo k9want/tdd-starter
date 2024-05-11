@@ -7,22 +7,30 @@ public class PasswordStrengthMeter {
         final String numberReg = ".*\\d.*";
         final String upperReg = ".*[A-Z].*";
 
+        int level = 3;
+
         // 길이 8 미만인 경우
         if (password.length() < 8) {
-            return PasswordStrength.NORMAL;
+            level -= 1;
         }
 
         // 숫자만 없는 경우
         if (!password.matches(numberReg)) {
-            return PasswordStrength.NORMAL;
+            level -= 1;
         }
 
         // 대문자가 없는 경우
         if (!password.matches(upperReg)) {
-            return PasswordStrength.NORMAL;
+            level -= 1;
         }
 
-        return PasswordStrength.STRONG;
+        if (level == 3) {
+            return PasswordStrength.STRONG;
+        } else if (level == 2) {
+            return PasswordStrength.NORMAL;
+        } else {
+            return PasswordStrength.WEAK;
+        }
     }
 
 }
