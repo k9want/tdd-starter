@@ -64,4 +64,11 @@ public class PasswordStrengthMeterTest {
         PasswordStrength result = meter.meter("abcdefghi!"); // 기대: STRONG
         Assertions.assertEquals(PasswordStrength.WEAK, result);
     }
+
+    @Test
+    void 숫자는_있고_나머지_항목은_충족하지_않는_경우() {
+        PasswordStrengthMeter meter = new PasswordStrengthMeter();
+        PasswordStrength result = meter.meter("1234567"); // 기대: STRONG
+        Assertions.assertEquals(PasswordStrength.WEAK, result);
+    }
 }
