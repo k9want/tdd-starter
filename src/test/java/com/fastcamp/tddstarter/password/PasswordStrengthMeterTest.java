@@ -24,8 +24,8 @@ public class PasswordStrengthMeterTest {
     *
     * WEAK
     * 길이가 8글자 이상이고 나머지 항목은 충족하지 않는 경우 (5)
-    * 숫자는 있고 나머지 항목은 충족하지 않는 경우
-    * 대문자가 있고 나머지 항목은 충족하지 않는 경우
+    * 숫자는 있고 나머지 항목은 충족하지 않는 경우 (6)
+    * 대문자가 있고 나머지 항목은 충족하지 않는 경우 (7)
     *
     * ZERO
     * 모든 항목을 충족하지 않는 경우
@@ -69,6 +69,13 @@ public class PasswordStrengthMeterTest {
     void 숫자는_있고_나머지_항목은_충족하지_않는_경우() {
         PasswordStrengthMeter meter = new PasswordStrengthMeter();
         PasswordStrength result = meter.meter("1234567"); // 기대: STRONG
+        Assertions.assertEquals(PasswordStrength.WEAK, result);
+    }
+
+    @Test
+    void 대문자가_있고_나머지_항목은_충족하지_않는_경우() {
+        PasswordStrengthMeter meter = new PasswordStrengthMeter();
+        PasswordStrength result = meter.meter("ABCDEFG"); // 기대: STRONG
         Assertions.assertEquals(PasswordStrength.WEAK, result);
     }
 }
