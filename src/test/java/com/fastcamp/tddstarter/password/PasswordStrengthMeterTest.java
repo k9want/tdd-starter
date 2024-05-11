@@ -27,8 +27,8 @@ public class PasswordStrengthMeterTest {
     * 숫자는 있고 나머지 항목은 충족하지 않는 경우 (6)
     * 대문자가 있고 나머지 항목은 충족하지 않는 경우 (7)
     *
-    * ZERO
-    * 모든 항목을 충족하지 않는 경우
+    * NOTHING
+    * 모든 항목을 충족하지 않는 경우 (8)
     * */
     @Test
     void 모든_항목을_충족하는_경우() {
@@ -40,42 +40,49 @@ public class PasswordStrengthMeterTest {
     @Test
     void 길이가_8글자_미만이고_모든항목을_충족하는_경우() {
         PasswordStrengthMeter meter = new PasswordStrengthMeter();
-        PasswordStrength result = meter.meter("ab12AB!"); // 기대: STRONG
+        PasswordStrength result = meter.meter("ab12AB!"); // 기대: NORMAL
         Assertions.assertEquals(PasswordStrength.NORMAL, result);
     }
 
     @Test
     void 숫자는_없고_나머지_항목은_충족하는_경우() {
         PasswordStrengthMeter meter = new PasswordStrengthMeter();
-        PasswordStrength result = meter.meter("abcdABCD!"); // 기대: STRONG
+        PasswordStrength result = meter.meter("abcdABCD!"); // 기대: NORMAL
         Assertions.assertEquals(PasswordStrength.NORMAL, result);
     }
 
     @Test
     void 대문자가_없고_나머지_항목은_충족하는_경우() {
         PasswordStrengthMeter meter = new PasswordStrengthMeter();
-        PasswordStrength result = meter.meter("abcd1234!"); // 기대: STRONG
+        PasswordStrength result = meter.meter("abcd1234!"); // 기대: NORMAL
         Assertions.assertEquals(PasswordStrength.NORMAL, result);
     }
 
     @Test
     void 길이가_8글자_이상이고_나머지_항목은_충족하지_않는_경우() {
         PasswordStrengthMeter meter = new PasswordStrengthMeter();
-        PasswordStrength result = meter.meter("abcdefghi!"); // 기대: STRONG
+        PasswordStrength result = meter.meter("abcdefghi!"); // 기대: WEAK
         Assertions.assertEquals(PasswordStrength.WEAK, result);
     }
 
     @Test
     void 숫자는_있고_나머지_항목은_충족하지_않는_경우() {
         PasswordStrengthMeter meter = new PasswordStrengthMeter();
-        PasswordStrength result = meter.meter("1234567"); // 기대: STRONG
+        PasswordStrength result = meter.meter("1234567"); // 기대: WEAK
         Assertions.assertEquals(PasswordStrength.WEAK, result);
     }
 
     @Test
     void 대문자가_있고_나머지_항목은_충족하지_않는_경우() {
         PasswordStrengthMeter meter = new PasswordStrengthMeter();
-        PasswordStrength result = meter.meter("ABCDEFG"); // 기대: STRONG
+        PasswordStrength result = meter.meter("ABCDEFG"); // 기대: WEAK
         Assertions.assertEquals(PasswordStrength.WEAK, result);
+    }
+
+    @Test
+    void 모든_항목을_충족하지_않는_경우() {
+        PasswordStrengthMeter meter = new PasswordStrengthMeter();
+        PasswordStrength result = meter.meter("abcdefg"); // 기대: NOTHING
+        Assertions.assertEquals(PasswordStrength.NOTHING, result);
     }
 }

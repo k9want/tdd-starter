@@ -28,8 +28,10 @@ public class PasswordStrengthMeter {
             return PasswordStrength.STRONG;
         } else if (level == 2) {
             return PasswordStrength.NORMAL;
-        } else {
+        } else if (level == 1) {
             return PasswordStrength.WEAK;
+        } else {
+            return PasswordStrength.NOTHING;
         }
     }
 
