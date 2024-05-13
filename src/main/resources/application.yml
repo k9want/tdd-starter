@@ -14,3 +14,10 @@ management:
     web:
       exposure:
         include: health, info, chaosmonkey
+
+# repository watcher ??? - watcher(?? ??)
+chaos:
+  monkey:
+    watcher:
+      repository: true
+      rest-controller: true
