@@ -33,6 +33,13 @@ dependencies {
     runtimeOnly("org.postgresql:postgresql")
     annotationProcessor("org.projectlombok:lombok")
     testImplementation("org.springframework.boot:spring-boot-starter-test")
+
+    // Chaos-Monkey
+// https://mvnrepository.com/artifact/de.codecentric/chaos-monkey-spring-boot
+    implementation("de.codecentric:chaos-monkey-spring-boot:3.1.0")
+    implementation("org.springframework.boot:spring-boot-starter-actuator")
+
+
 }
 
 tasks.withType<Test> {
