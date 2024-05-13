@@ -1,7 +1,6 @@
 package com.fastcamp.tddstarter.mockito;
 
 import static org.mockito.Mockito.any;
-import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
@@ -13,22 +12,23 @@ import com.fastcamp.tddstarter.mockito.ticketing.service.TicketingService;
 import java.util.Arrays;
 import java.util.UUID;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.junit.jupiter.MockitoExtension;
 
-//@ExtendWith(MockitoExtension.class)
+@ExtendWith(MockitoExtension.class)
 public class MockitoTicketingServiceTests {
 
+    @Mock
+    PerformanceService performanceService;
+    @Mock
+    ReservationRepository reservationRepository;
+    @InjectMocks
     private TicketingService ticketingService;
-
 
     @Test
     void ticketingTest() {
-        PerformanceService performanceService = mock(PerformanceService.class);
-        ReservationRepository reservationRepository = mock(ReservationRepository.class);
-
-        // Mock 객체를 이용한 의존성 문제 해결
-        ticketingService = new TicketingService(performanceService,
-            reservationRepository);
-
         when(performanceService.isEnableReserve(any()))
             .then(invocationOnMock -> {
                 System.out.println("Execute Mocking Code");
