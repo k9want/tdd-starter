@@ -1,5 +1,6 @@
 package com.fastcamp.tddstarter.mockito;
 
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.any;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
@@ -10,6 +11,7 @@ import com.fastcamp.tddstarter.mockito.ticketing.repository.ReservationRepositor
 import com.fastcamp.tddstarter.mockito.ticketing.service.PerformanceService;
 import com.fastcamp.tddstarter.mockito.ticketing.service.TicketingService;
 import java.util.Arrays;
+import java.util.NoSuchElementException;
 import java.util.UUID;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -28,7 +30,7 @@ public class MockitoTicketingServiceTests {
     private TicketingService ticketingService;
 
     @Test
-    void ticketingTest() {
+    void ticketingEnableTest() {
         when(performanceService.isEnableReserve(any()))
             .then(invocationOnMock -> {
                 System.out.println("Execute Mocking Code");
@@ -53,5 +55,35 @@ public class MockitoTicketingServiceTests {
         // 행동 검증
         verify(performanceService, times(1)).isEnableReserve(any());
         verify(reservationRepository, times(1)).save(any());
+    }
+
+    @Test
+    void ticketingDisableTest() {
+
+        // 호출이 되는 것을 기대하며 메서드에 대한 기대 행위를 명시
+        Ticket t = Ticket.builder()
+            .performanceId(UUID.fromString(UUID.randomUUID().toString()))
+            .performanceName("모킹테스트")
+            .reservationName("이상권")
+            .reservationPhoneNumber("010-1234-1234")
+            .reservationStatus("reserve")
+            .round(1)
+            .line('A')
+            .seat(1)
+            .appliedPolicies(Arrays.asList(new String[]{"telecome"}))
+            .build();
+
+        when(performanceService.isEnableReserve(any()))
+            .then(invocationOnMock -> {
+                System.out.println("Execute Mocking Code");
+                return "disable";
+            });
+
+        assertThrows(NoSuchElementException.class, () -> ticketingService.ticketing(t));
+//        ticketingService.ticketing(t);
+
+        // 행동 검증
+        verify(performanceService, times(1)).isEnableReserve(any());
+        verify(reservationRepository, times(0)).save(any());
     }
 }
