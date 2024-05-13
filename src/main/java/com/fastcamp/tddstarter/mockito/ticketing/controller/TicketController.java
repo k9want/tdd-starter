@@ -6,6 +6,7 @@ import java.util.Arrays;
 import java.util.UUID;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -17,6 +18,10 @@ public class TicketController {
 
     private final TicketingService ticketingService;
 
+    @GetMapping
+    public ResponseEntity<String> test() {
+        return ResponseEntity.ok().body("Test");
+    }
     @PostMapping("/reserve")
     public ResponseEntity<Ticket> reservation() throws Exception {
         Ticket ticket = Ticket.builder()
