@@ -1,4 +1,4 @@
-package com.fastcamp.tddstarter.controller;
+package com.fastcamp.tddstarter.ngrinder.controller;
 
 import java.time.LocalDateTime;
 import lombok.extern.slf4j.Slf4j;
