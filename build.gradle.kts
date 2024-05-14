@@ -39,7 +39,7 @@ dependencies {
     implementation("de.codecentric:chaos-monkey-spring-boot:3.1.0")
     implementation("org.springframework.boot:spring-boot-starter-actuator")
 
-
+    testImplementation("com.h2database:h2:2.2.224")
 }
 
 tasks.withType<Test> {
